@@ -2,12 +2,24 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import PsychologyAltOutlinedIcon from "@mui/icons-material/PsychologyAltOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import SpeedOutlinedIcon from "@mui/icons-material/SpeedOutlined";
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 
 const features = [
-  { icon: <PsychologyAltOutlinedIcon sx={{ fontSize: 28 }} />, title: "Intelligent Analysis" },
-  { icon: <SecurityOutlinedIcon sx={{ fontSize: 28 }} />, title: "Secure & Private" },
-  { icon: <SpeedOutlinedIcon sx={{ fontSize: 28 }} />, title: "Fast & Reliable" },
+    {
+        icon: <PsychologyAltOutlinedIcon sx={{ fontSize: 28 }} />,
+        title: "Intelligent Analysis",
+        description: "Detect anomalies and explain root causes",
+    },
+    {
+        icon: <SecurityOutlinedIcon sx={{ fontSize: 28 }} />,
+        title: "Secure & Private",
+        description: "Your data will not be stored",
+    },
+    {
+        icon: <SpeedOutlinedIcon sx={{ fontSize: 28 }} />,
+        title: "Fast & Reliable",
+        description: "Get insights in seconds",
+    },
 ];
 
 export function AppHeader() {
@@ -16,6 +28,7 @@ export function AppHeader() {
       component="header"
       sx={{
         width: "100%",
+        textAlign: "left",
         px: { xs: 3, md: 6 },
         py: { xs: 2.5, md: 3 },
         mb: 3,
@@ -40,7 +53,7 @@ export function AppHeader() {
       }}
     >
       {/* Brand */}
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2,  mr: "auto" }}>
         <Box
           sx={{
             width: 48,
@@ -78,9 +91,12 @@ export function AppHeader() {
           flexWrap: "wrap",
         }}
       >
-        {features.map((f, i) => (
-          <Box key={f.title} sx={{ display: "flex", alignItems: "center" }}>
-            {i > 0 && (
+        {features.map((feature, index) => (
+          <Box
+            key={feature.title}
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            {index > 0 && (
               <Box
                 sx={{
                   width: "1px",
@@ -90,14 +106,64 @@ export function AppHeader() {
                 }}
               />
             )}
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <Box sx={{ color: "#8b5cf6", display: "flex", alignItems: "center" }}>
-                {f.icon}
+
+            <Tooltip
+              title={feature.description}
+              arrow
+              placement="bottom"
+              slotProps={{
+                tooltip: {
+                  sx: {
+                    bgcolor: "#111827",
+                    color: "#f8fafc",
+                    border: "1px solid rgba(148,163,184,0.2)",
+                    fontSize: "0.8rem",
+                  },
+                },
+                arrow: {
+                  sx: {
+                    color: "#111827",
+                  },
+                },
+              }}
+            >
+              <Box
+                tabIndex={0}
+                role="button"
+                aria-label={`${feature.title}: ${feature.description}`}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1.5,
+                  cursor: "help",
+                  borderRadius: 2,
+                  px: 1,
+                  py: 0.75,
+                  transition: "background-color 0.2s ease",
+                  "&:hover, &:focus-visible": {
+                    backgroundColor: "rgba(139,92,246,0.12)",
+                    outline: "none",
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    color: "#8b5cf6",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {feature.icon}
+                </Box>
+
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 700, whiteSpace: "nowrap" }}
+                >
+                  {feature.title}
+                </Typography>
               </Box>
-              <Typography variant="body2" sx={{ fontWeight: 700, whiteSpace: "nowrap" }}>
-                {f.title}
-              </Typography>
-            </Box>
+            </Tooltip>
           </Box>
         ))}
       </Box>
