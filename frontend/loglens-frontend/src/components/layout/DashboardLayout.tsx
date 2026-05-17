@@ -1,5 +1,5 @@
-import { Box, Container, Paper } from "@mui/material";
 import type { ReactNode } from "react";
+import { Box, Container, Paper } from "@mui/material";
 import { AppHeader } from "./AppHeader";
 
 interface DashboardLayoutProps {
@@ -7,48 +7,51 @@ interface DashboardLayoutProps {
   resultsPanel: ReactNode;
 }
 
-export function DashboardLayout({
-  inputPanel,
-  resultsPanel,
-}: DashboardLayoutProps) {
+export function DashboardLayout({ inputPanel, resultsPanel }: DashboardLayoutProps) {
   return (
     <Box
       sx={{
         minHeight: "100vh",
-        bgcolor: "background.default",
-        py: 4,
+        background:
+          "radial-gradient(circle at top left, rgba(79,70,229,0.18), transparent 35%), radial-gradient(circle at top right, rgba(124,58,237,0.16), transparent 30%), #07111f",
       }}
     >
-      <Container maxWidth="xl">
-        <AppHeader />
+      {/* Header is a direct child of the full-width box — NOT inside Container */}
+      <AppHeader />
 
+      <Container maxWidth={false} sx={{ px: { xs: 2, md: 4 }, pb: 4 }}>
         <Box
           component="main"
           sx={{
             display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              md: "1fr 1fr",
-            },
+            gridTemplateColumns: { xs: "1fr", lg: "0.95fr 1.05fr" },
             gap: 3,
             alignItems: "stretch",
           }}
         >
           <Paper
-            elevation={3}
+            elevation={0}
             sx={{
-              p: 3,
-              minHeight: 520,
+              minHeight: 640,
+              overflow: "hidden",
+              borderRadius: 3,
+              border: "1px solid rgba(148,163,184,0.18)",
+              background: "linear-gradient(180deg, rgba(15,23,42,0.92), rgba(15,23,42,0.78))",
+              boxShadow: "0 18px 40px rgba(0,0,0,0.28)",
             }}
           >
             {inputPanel}
           </Paper>
 
           <Paper
-            elevation={3}
+            elevation={0}
             sx={{
-              p: 3,
-              minHeight: 520,
+              minHeight: 640,
+              overflow: "hidden",
+              borderRadius: 3,
+              border: "1px solid rgba(148,163,184,0.18)",
+              background: "linear-gradient(180deg, rgba(15,23,42,0.92), rgba(15,23,42,0.78))",
+              boxShadow: "0 18px 40px rgba(0,0,0,0.28)",
             }}
           >
             {resultsPanel}
