@@ -29,7 +29,7 @@ function App() {
 
       const mockResult: AnalysisResult = {
         anomalyDetected: true,
-        severity: "High",
+        severity: "Low",
         summary: "Repeated database connection failures detected.",
         explanation:
           "The logs indicate repeated failures to connect to the database service followed by timeout errors.",
@@ -43,7 +43,7 @@ function App() {
           "Check database credentials",
           "Inspect network connectivity",
         ],
-        confidence: "Medium",
+        confidence: "Low",
       };
 
       setResult(mockResult);

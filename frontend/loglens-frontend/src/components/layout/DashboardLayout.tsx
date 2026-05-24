@@ -11,29 +11,37 @@ export function DashboardLayout({ inputPanel, resultsPanel }: DashboardLayoutPro
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        height: "100vh",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
         background:
           "radial-gradient(circle at top left, rgba(79,70,229,0.18), transparent 35%), radial-gradient(circle at top right, rgba(124,58,237,0.16), transparent 30%), #07111f",
       }}
     >
-      {/* Header is a direct child of the full-width box — NOT inside Container */}
       <AppHeader />
 
-      <Container maxWidth={false} sx={{ px: { xs: 2, md: 4 }, pb: 4 }}>
+      <Box
+        sx={{
+          flex: 1,
+          overflow: "hidden",
+          px: { xs: 2, md: 4 },
+          py: { xs: 2, md: 3 },
+        }}
+      >
         <Box
           component="main"
           sx={{
+            height: "100%",
             display: "grid",
             gridTemplateColumns: { xs: "1fr", lg: "0.95fr 1.05fr" },
             gap: 3,
-            alignItems: "stretch",
           }}
         >
           <Paper
             elevation={0}
             sx={{
-              minHeight: 640,
-              overflow: "hidden",
+              overflow: "auto",
               borderRadius: 3,
               border: "1px solid rgba(148,163,184,0.18)",
               background: "linear-gradient(180deg, rgba(15,23,42,0.92), rgba(15,23,42,0.78))",
@@ -46,8 +54,7 @@ export function DashboardLayout({ inputPanel, resultsPanel }: DashboardLayoutPro
           <Paper
             elevation={0}
             sx={{
-              minHeight: 640,
-              overflow: "hidden",
+              overflow: "auto",
               borderRadius: 3,
               border: "1px solid rgba(148,163,184,0.18)",
               background: "linear-gradient(180deg, rgba(15,23,42,0.92), rgba(15,23,42,0.78))",
@@ -57,7 +64,7 @@ export function DashboardLayout({ inputPanel, resultsPanel }: DashboardLayoutPro
             {resultsPanel}
           </Paper>
         </Box>
-      </Container>
+      </Box>
     </Box>
   );
 }

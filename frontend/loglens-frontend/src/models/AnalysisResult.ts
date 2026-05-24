@@ -1,4 +1,5 @@
 export type SeverityLevel = "Low" | "Medium" | "High";
+export type ConfidenceLevel = "Low" | "Medium" | "High";
 
 export interface AnalysisResult {
   anomalyDetected: boolean;
@@ -7,5 +8,5 @@ export interface AnalysisResult {
   explanation: string;
   possibleCauses: string[];
   suggestedFixes: string[];
-  confidence: SeverityLevel;
+  confidence: ConfidenceLevel;
 }

@@ -37,18 +37,20 @@ export function LogInputPanel({
   const hasInput = logs.trim().length > 0 || file !== null;
 
   return (
-    <Box>
-      <Box sx={{ p: 3 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      {/* Panel header */}
+      <Box sx={{ px: 3, py: 2, textAlign: "left" }}>
         <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
           <Box
             sx={{
-              width: 56,
-              height: 56,
+              width: 44,
+              height: 44,
               borderRadius: 2,
               display: "grid",
               placeItems: "center",
               background: "rgba(99,102,241,0.18)",
               color: "#8b5cf6",
+              flexShrink: 0,
             }}
           >
             <DescriptionOutlinedIcon />
@@ -56,68 +58,68 @@ export function LogInputPanel({
 
           <Box>
             <Typography variant="h6">1. Provide Logs</Typography>
-            <Typography color="text.secondary">
+            <Typography color="text.secondary" variant="body2">
               Paste your log output or upload a log file
             </Typography>
           </Box>
         </Stack>
       </Box>
 
-      <Box sx={{ borderTop: "1px solid rgba(148,163,184,0.15)", p: 3 }}>
-        <Tabs
-          value={activeTab}
-          onChange={(_, value) => setActiveTab(value)}
-          sx={{
-            mb: 2,
-            minHeight: 52,
-            border: "1px solid rgba(148,163,184,0.18)",
-            borderRadius: 2,
-            width: "fit-content",
-            "& .MuiTabs-indicator": {
-              backgroundColor: "#8b5cf6",
-            },
-            "& .MuiTab-root": {
-              minHeight: 52,
-              textTransform: "none",
-              px: 3,
-              fontSize: "1rem",
-            },
-            "& .Mui-selected": {
-              color: "#fff !important",
-              background:
-                "linear-gradient(135deg, rgba(124,58,237,0.55), rgba(79,70,229,0.35))",
-            },
-          }}
-        >
-          <Tab
-            icon={<InsertDriveFileOutlinedIcon />}
-            iconPosition="start"
-            label="Paste Logs"
-          />
-          <Tab
-            icon={<UploadOutlinedIcon />}
-            iconPosition="start"
-            label="Upload File"
-          />
-        </Tabs>
-
-        {activeTab === 0 ? (
-          <TextLogInput value={logs} onChange={onLogsChange} />
-        ) : (
-          <FileLogUpload file={file} onFileChange={onFileChange} />
-        )}
-
-        <Stack
-        direction="row"
+      {/* Panel body */}
+      <Box
         sx={{
-            mt: 2,
-            justifyContent: "space-between",
-            color: "text.secondary",
+          borderTop: "1px solid rgba(148,163,184,0.15)",
+          px: 2.5,
+          pt: 2,
+          pb: 2.5,
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          gap: 1.5,
         }}
-        >
-          <Typography variant="body2">Supports .log, .txt, .json</Typography>
-          <Typography variant="body2">{logs.length} / 200,000 characters</Typography>
+      >
+        <Stack direction="row" sx={{ alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
+          <Tabs
+            value={activeTab}
+            onChange={(_, value) => setActiveTab(value)}
+            sx={{
+              minHeight: 44,
+              border: "1px solid rgba(148,163,184,0.18)",
+              borderRadius: 2,
+              width: "fit-content",
+              "& .MuiTabs-indicator": { display: "none" },
+              "& .MuiTab-root": {
+                minHeight: 44,
+                textTransform: "none",
+                px: 2.5,
+                fontSize: "0.9rem",
+              },
+              "& .Mui-selected": {
+                color: "#fff !important",
+                background: "linear-gradient(135deg, rgba(124,58,237,0.55), rgba(79,70,229,0.35))",
+              },
+            }}
+          >
+            <Tab icon={<InsertDriveFileOutlinedIcon fontSize="small" />} iconPosition="start" label="Paste Logs" />
+            <Tab icon={<UploadOutlinedIcon fontSize="small" />} iconPosition="start" label="Upload File" />
+          </Tabs>
+
+          {activeTab === 0 && (
+            <Typography variant="body2" color="text.secondary">
+              {logs.length} / 200,000
+            </Typography>
+          )}
         </Stack>
+
+        {/* Tab content — grows and clips */}
+        <Box sx={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
+          {activeTab === 0 ? (
+            <TextLogInput value={logs} onChange={onLogsChange} />
+          ) : (
+            <FileLogUpload file={file} onFileChange={onFileChange} />
+          )}
+        </Box>
 
         <Button
           fullWidth
@@ -127,31 +129,24 @@ export function LogInputPanel({
           onClick={onAnalyze}
           startIcon={<PlayArrowOutlinedIcon />}
           sx={{
-            mt: 3,
-            py: 1.6,
+            flexShrink: 0,
+            py: 1.4,
             fontSize: "1rem",
             fontWeight: 700,
             textTransform: "none",
             background: "linear-gradient(135deg, #4f46e5, #6d28d9)",
-            "&:hover": {
-              background: "linear-gradient(135deg, #4338ca, #5b21b6)",
-            },
+            "&:hover": { background: "linear-gradient(135deg, #4338ca, #5b21b6)" },
           }}
         >
           {loading ? "Analyzing..." : "Analyze Logs"}
         </Button>
 
         <Stack
-            direction="row"
-            spacing={1}
-            sx={{
-                mt: 3,
-                justifyContent: "center",
-                alignItems: "center",
-                color: "text.secondary",
-            }}
+          direction="row"
+          spacing={1}
+          sx={{ justifyContent: "center", alignItems: "center", color: "text.secondary", flexShrink: 0 }}
         >
-          <VerifiedUserOutlinedIcon sx={{ fontSize: 20, color: "#8b5cf6" }} />
+          <VerifiedUserOutlinedIcon sx={{ fontSize: 18, color: "#8b5cf6" }} />
           <Typography variant="body2">Your data will not be stored.</Typography>
         </Stack>
       </Box>
