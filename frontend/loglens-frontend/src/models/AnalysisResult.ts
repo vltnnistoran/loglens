@@ -1,9 +1,11 @@
+export type SeverityLevel = "Low" | "Medium" | "High";
+
 export interface AnalysisResult {
-    anomalyDetected: boolean;
-    severity: "Low" | "Medium" | "High";
-    summary: string;
-    explanation: string;
-    possibleCauses: string[];
-    suggestedFixes: string[];
-    confidence: "Low" | "Medium" | "High";
-  }
+  anomalyDetected: boolean;
+  severity: SeverityLevel;
+  summary: string;
+  explanation: string;
+  possibleCauses: string[];
+  suggestedFixes: string[];
+  confidence: SeverityLevel;
+}
