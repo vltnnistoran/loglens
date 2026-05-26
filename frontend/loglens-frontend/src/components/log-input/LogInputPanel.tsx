@@ -93,7 +93,7 @@ export function LogInputPanel({
                 minHeight: 44,
                 textTransform: "none",
                 px: 2.5,
-                fontSize: "0.9rem",
+                fontSize: "1rem",
               },
               "& .Mui-selected": {
                 color: "#fff !important",
@@ -131,7 +131,7 @@ export function LogInputPanel({
           sx={{
             flexShrink: 0,
             py: 1.4,
-            fontSize: "1rem",
+            fontSize: "1.1rem",
             fontWeight: 700,
             textTransform: "none",
             background: "linear-gradient(135deg, #4f46e5, #6d28d9)",

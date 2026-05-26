@@ -13,7 +13,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <Typography
         variant="overline"
         sx={{
-          fontSize: "0.78rem",
+          fontSize: "0.9rem",
           fontWeight: 700,
           letterSpacing: "0.12em",
           color: "rgba(226,232,240,0.85)",
@@ -40,7 +40,7 @@ function BulletItem({ text }: { text: string }) {
           flexShrink: 0,
         }}
       />
-      <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.65 }}>
+      <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.65 }}>
         {text}
       </Typography>
     </Stack>
@@ -58,12 +58,12 @@ export function AnalysisResultView({ result }: AnalysisResultViewProps) {
         </Typography>
 
         <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", justifyContent: "center" }}>
-          <Typography variant="body2" sx={{ color: "rgba(226,232,240,0.9)", letterSpacing: "0.03em", fontWeight: 600 }}>
+          <Typography variant="body1" sx={{ color: "rgba(226,232,240,0.9)", letterSpacing: "0.03em", fontWeight: 600 }}>
             Severity
           </Typography>
           <SeverityBadge severity={result.severity} />
           <Box sx={{ width: "1px", height: 14, backgroundColor: "rgba(148,163,184,0.3)" }} />
-          <Typography variant="body2" sx={{ color: "rgba(226,232,240,0.9)", letterSpacing: "0.03em", fontWeight: 600 }}>
+          <Typography variant="body1" sx={{ color: "rgba(226,232,240,0.9)", letterSpacing: "0.03em", fontWeight: 600 }}>
             Confidence
           </Typography>
           <ConfidenceBadge confidence={result.confidence} />
@@ -73,7 +73,7 @@ export function AnalysisResultView({ result }: AnalysisResultViewProps) {
       <Divider sx={{ borderColor: "rgba(148,163,184,0.08)" }} />
 
       <Section title="Explanation">
-        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+        <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
           {result.explanation}
         </Typography>
       </Section>

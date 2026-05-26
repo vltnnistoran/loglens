@@ -18,7 +18,7 @@ export function TextLogInput({ value, onChange }: TextLogInputProps) {
           resize: "none",
           boxSizing: "border-box",
           fontFamily: "monospace",
-          fontSize: "0.95rem",
+          fontSize: "1.2rem",
           color: "#cbd5e1",
           backgroundColor: "rgba(2, 6, 23, 0.35)",
           border: "1px solid rgba(139, 92, 246, 0.55)",
