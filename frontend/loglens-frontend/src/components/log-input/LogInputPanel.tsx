@@ -18,6 +18,7 @@ import { TextLogInput } from "./TextLogInput";
 interface LogInputPanelProps {
   logs: string;
   file: File | null;
+  hasInput: boolean;
   loading: boolean;
   onLogsChange: (logs: string) => void;
   onFileChange: (file: File | null) => void;
@@ -27,14 +28,13 @@ interface LogInputPanelProps {
 export function LogInputPanel({
   logs,
   file,
+  hasInput,
   loading,
   onLogsChange,
   onFileChange,
   onAnalyze,
 }: LogInputPanelProps) {
   const [activeTab, setActiveTab] = useState(0);
-
-  const hasInput = logs.trim().length > 0 || file !== null;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>

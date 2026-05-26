@@ -56,7 +56,6 @@ function App() {
 
   function handleFileChange(selectedFile: File | null) {
     setFile(selectedFile);
-
     if (selectedFile) {
       setLogs("");
     }
@@ -64,7 +63,6 @@ function App() {
 
   function handleLogsChange(value: string) {
     setLogs(value);
-
     if (value.trim().length > 0) {
       setFile(null);
     }
@@ -77,13 +75,14 @@ function App() {
           <LogInputPanel
             logs={logs}
             file={file}
+            hasInput={hasInput}
             loading={loading}
             onLogsChange={handleLogsChange}
             onFileChange={handleFileChange}
             onAnalyze={handleAnalyze}
           />
         }
-        resultsPanel={<ResultsPanel result={result} />}
+        resultsPanel={<ResultsPanel result={result} loading={loading} />}
       />
 
       <Snackbar

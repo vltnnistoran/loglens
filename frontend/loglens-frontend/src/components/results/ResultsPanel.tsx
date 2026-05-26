@@ -1,17 +1,71 @@
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import type { AnalysisResult } from "../../models/AnalysisResult";
 import { AnalysisResultView } from "./AnalysisResultView";
 import { EmptyState } from "./EmptyState";
 
 interface ResultsPanelProps {
   result: AnalysisResult | null;
+  loading: boolean;
 }
 
-export function ResultsPanel({ result }: ResultsPanelProps) {
+function ResultsSkeleton() {
+  return (
+    <Box sx={{ p: 3, display: "flex", flexDirection: "column", gap: 2.5 }}>
+      {/* Summary block */}
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1.5 }}>
+        <Skeleton variant="text" width="70%" height={32} />
+        <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
+          <Skeleton variant="text" width={60} height={20} />
+          <Skeleton variant="rounded" width={52} height={24} />
+          <Skeleton variant="text" width={70} height={20} />
+          <Skeleton variant="rounded" width={52} height={24} />
+        </Stack>
+      </Box>
+
+      <Skeleton variant="rectangular" height={1} />
+
+      {/* Explanation */}
+      <Box>
+        <Skeleton variant="text" width="30%" height={18} sx={{ mb: 1 }} />
+        <Skeleton variant="text" width="100%" />
+        <Skeleton variant="text" width="92%" />
+        <Skeleton variant="text" width="80%" />
+      </Box>
+
+      <Skeleton variant="rectangular" height={1} />
+
+      {/* Possible causes */}
+      <Box>
+        <Skeleton variant="text" width="35%" height={18} sx={{ mb: 1 }} />
+        {[...Array(3)].map((_, i) => (
+          <Stack key={i} direction="row" spacing={1.5} sx={{ alignItems: "center", py: 0.6, pl: 1.5 }}>
+            <Skeleton variant="circular" width={7} height={7} />
+            <Skeleton variant="text" width={`${60 + i * 10}%`} />
+          </Stack>
+        ))}
+      </Box>
+
+      <Skeleton variant="rectangular" height={1} />
+
+      {/* Suggested fixes */}
+      <Box>
+        <Skeleton variant="text" width="30%" height={18} sx={{ mb: 1 }} />
+        {[...Array(3)].map((_, i) => (
+          <Stack key={i} direction="row" spacing={1.5} sx={{ alignItems: "center", py: 0.6, pl: 1.5 }}>
+            <Skeleton variant="circular" width={7} height={7} />
+            <Skeleton variant="text" width={`${55 + i * 8}%`} />
+          </Stack>
+        ))}
+      </Box>
+    </Box>
+  );
+}
+
+export function ResultsPanel({ result, loading }: ResultsPanelProps) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Box sx={{ px: 3, py: 2, textAlign: "left"  }}>
+      <Box sx={{ px: 3, py: 2, textAlign: "left" }}>
         <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
           <Box
             sx={{
@@ -38,7 +92,13 @@ export function ResultsPanel({ result }: ResultsPanelProps) {
       </Box>
 
       <Box sx={{ borderTop: "1px solid rgba(148,163,184,0.15)", flex: 1, overflow: "auto" }}>
-        {result ? <AnalysisResultView result={result} /> : <EmptyState />}
+        {loading ? (
+          <ResultsSkeleton />
+        ) : result ? (
+          <AnalysisResultView result={result} />
+        ) : (
+          <EmptyState />
+        )}
       </Box>
     </Box>
   );

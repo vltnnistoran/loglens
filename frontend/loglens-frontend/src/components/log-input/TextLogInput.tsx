@@ -7,13 +7,12 @@ interface TextLogInputProps {
 
 export function TextLogInput({ value, onChange }: TextLogInputProps) {
   return (
-    <Box sx={{ height: "100%", position: "relative", overflow: "hidden" }}>
-      <textarea
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={`Paste your log output here...\n\nExample:\n2024-01-15T10:23:45.123Z INFO [App] Server started on port 3000\n2024-01-15T10:24:01.456Z ERROR [DB] Connection refused: timeout after 30s`}
-        aria-label="Log text input"
-        style={{
+    <Box
+      sx={{
+        height: "100%",
+        position: "relative",
+        overflow: "hidden",
+        "& textarea": {
           width: "100%",
           height: "100%",
           resize: "none",
@@ -29,21 +28,18 @@ export function TextLogInput({ value, onChange }: TextLogInputProps) {
           overflowY: "auto",
           lineHeight: 1.6,
           display: "block",
-        }}
-        onFocus={(e) => {
-          e.target.style.borderColor = "#8b5cf6";
-        }}
-        onBlur={(e) => {
-          e.target.style.borderColor = "rgba(139, 92, 246, 0.55)";
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = "#8b5cf6";
-        }}
-        onMouseLeave={(e) => {
-          if (document.activeElement !== e.currentTarget) {
-            e.currentTarget.style.borderColor = "rgba(139, 92, 246, 0.55)";
-          }
-        }}
+          transition: "border-color 0.2s",
+        },
+        "& textarea:hover, & textarea:focus": {
+          borderColor: "#8b5cf6",
+        },
+      }}
+    >
+      <textarea
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={`Paste your log output here...\n\nExample:\n2024-01-15T10:23:45.123Z INFO [App] Server started on port 3000\n2024-01-15T10:24:01.456Z ERROR [DB] Connection refused: timeout after 30s`}
+        aria-label="Log text input"
       />
     </Box>
   );
