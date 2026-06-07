@@ -78,6 +78,18 @@ export function AnalysisResultView({ result }: AnalysisResultViewProps) {
         </Typography>
       </Section>
 
+      {result.detectedPatterns.length > 0 && (
+        <>
+          <Divider sx={{ borderColor: "rgba(148,163,184,0.08)" }} />
+
+          <Section title="Detected Patterns">
+            {result.detectedPatterns.map((pattern) => (
+              <BulletItem key={pattern} text={pattern} />
+            ))}
+          </Section>
+        </>
+      )}
+
       <Divider sx={{ borderColor: "rgba(148,163,184,0.08)" }} />
 
       <Section title="Possible Causes">

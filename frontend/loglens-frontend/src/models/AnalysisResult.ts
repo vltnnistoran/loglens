@@ -9,4 +9,5 @@ export interface AnalysisResult {
   possibleCauses: string[];
   suggestedFixes: string[];
   confidence: ConfidenceLevel;
+  detectedPatterns: string[];
 }

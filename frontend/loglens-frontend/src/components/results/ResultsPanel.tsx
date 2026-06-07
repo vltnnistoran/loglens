@@ -35,6 +35,19 @@ function ResultsSkeleton() {
 
       <Skeleton variant="rectangular" height={1} />
 
+      {/* Detected Patterns */}
+      <Box>
+        <Skeleton variant="text" width="40%" height={18} sx={{ mb: 1 }} />
+        {[...Array(4)].map((_, i) => (
+          <Stack key={i} direction="row" spacing={1.5} sx={{ alignItems: "center", py: 0.6, pl: 1.5, }}>
+            <Skeleton variant="circular" width={7} height={7} />
+            <Skeleton variant="text" width={`${65 + i * 5}%`} />
+          </Stack>
+        ))}
+      </Box>
+
+      <Skeleton variant="rectangular" height={1} />
+
       {/* Possible causes */}
       <Box>
         <Skeleton variant="text" width="35%" height={18} sx={{ mb: 1 }} />
