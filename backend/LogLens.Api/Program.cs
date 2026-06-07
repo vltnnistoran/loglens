@@ -16,8 +16,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IAnomalyDetectionService, AnomalyDetectionService>();
 builder.Services.AddScoped<ILlmAnalysisService, MockLlmAnalysisService>();
@@ -28,8 +27,7 @@ app.UseCors("Frontend");
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
