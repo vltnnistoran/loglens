@@ -5,6 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
@@ -16,19 +19,18 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddOpenApi();
-
 builder.Services.AddScoped<IAnomalyDetectionService, AnomalyDetectionService>();
 builder.Services.AddScoped<ILlmAnalysisService, MockLlmAnalysisService>();
 
 var app = builder.Build();
 
-app.UseCors("Frontend");
-
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseCors("Frontend");
 
 app.UseHttpsRedirection();
 
