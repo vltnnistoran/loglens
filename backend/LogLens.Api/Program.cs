@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IAnomalyDetectionService, AnomalyDetectionService>();
-builder.Services.AddScoped<ILlmAnalysisService, MockLlmAnalysisService>();
+builder.Services.AddHttpClient<ILlmAnalysisService, OpenAiLlmAnalysisService>();
 
 var app = builder.Build();
 
