@@ -4,6 +4,7 @@ import { useState } from "react";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { LogInputPanel } from "./components/log-input/LogInputPanel";
 import { ResultsPanel } from "./components/results/ResultsPanel";
+import { analyzeLogs } from "./services/logAnalysisApi";
 import type { AnalysisResult } from "./models/AnalysisResult";
 
 function App() {
@@ -25,28 +26,9 @@ function App() {
       setLoading(true);
       setError("");
 
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-
-      const mockResult: AnalysisResult = {
-        anomalyDetected: true,
-        severity: "Low",
-        summary: "Repeated database connection failures detected.",
-        explanation:
-          "The logs indicate repeated failures to connect to the database service followed by timeout errors.",
-        possibleCauses: [
-          "Database service unavailable",
-          "Incorrect connection string",
-          "Network connectivity issue",
-        ],
-        suggestedFixes: [
-          "Verify database availability",
-          "Check database credentials",
-          "Inspect network connectivity",
-        ],
-        confidence: "Low",
-      };
-
-      setResult(mockResult);
+      const analysisResult = await analyzeLogs(logs, file);
+      
+      setResult(analysisResult);
     } catch {
       setError("Failed to analyze logs.");
     } finally {
