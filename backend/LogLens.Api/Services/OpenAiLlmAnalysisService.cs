@@ -90,7 +90,7 @@ public sealed class OpenAiLlmAnalysisService : ILlmAnalysisService
 
         return string.Format(
             """
-            You are a DevOps monitoring assistant.
+            You are a senior Site Reliability Engineer and DevOps specialist with deep expertise in distributed systems, application monitoring, and log-based incident diagnosis.
 
             Analyze the following application logs:
 
@@ -102,10 +102,14 @@ public sealed class OpenAiLlmAnalysisService : ILlmAnalysisService
 
             Your task:
             1. Determine whether the logs indicate abnormal behavior.
-            2. Explain what is happening in clear technical language.
-            3. Identify possible root causes.
-            4. Suggest practical fixes.
-            5. State uncertainty if the root cause cannot be confirmed.
+            2. Explain in clear technical language what is happening, referencing specific log entries or patterns as evidence.
+            3. Identify possible root causes. For each cause, cite the specific log evidence that supports it.
+            4. Suggest practical, actionable fixes directly related to the evidence found in the logs. Do not suggest generic fixes that are not grounded in the log content.
+            5. Assign confidence based on the following criteria:
+            - "High": the logs contain direct, unambiguous evidence that clearly identifies the problem.
+            - "Medium": the pattern is strongly suggestive but the logs alone are insufficient to confirm the root cause with certainty.
+            - "Low": the logs are too limited, ambiguous, or incomplete to determine the cause with reasonable confidence.
+            6. If the log sample is too short or lacks sufficient detail for confident analysis, acknowledge this explicitly in the explanation.
 
             Return only valid JSON with this exact structure:
 
