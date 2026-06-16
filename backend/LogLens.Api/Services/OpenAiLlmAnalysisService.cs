@@ -115,13 +115,14 @@ public sealed class OpenAiLlmAnalysisService : ILlmAnalysisService
 
             {{
             "incidentDetected": true,
-            "summary": "",
-            "explanation": "",
-            "possibleCauses": [],
-            "suggestedFixes": [],
+            "summary": "short summary of the incident",
+            "explanation": "detailed technical explanation referencing specific log entries",
+            "possibleCauses": ["first cause as a plain string", "second cause as a plain string"],
+            "suggestedFixes": ["first fix as a plain string", "second fix as a plain string"],
             "confidence": "Low"
             }}
 
+            Every item in possibleCauses and suggestedFixes must be a plain string, not an object.
             The confidence value must be one of: "Low", "Medium", "High".
             """,
             logs,
