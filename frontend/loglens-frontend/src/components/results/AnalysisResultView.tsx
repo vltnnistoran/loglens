@@ -78,7 +78,7 @@ export function AnalysisResultView({ result }: AnalysisResultViewProps) {
         </Typography>
       </Section>
 
-      {result.detectedPatterns.length > 0 && (
+      {result.detectedPatterns?.length > 0 && (
         <>
           <Divider sx={{ borderColor: "rgba(148,163,184,0.08)" }} />
 
