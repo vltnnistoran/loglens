@@ -1,4 +1,9 @@
-export async function analyzeLogs(logs: string, file: File | null) {
+import type { AnalysisResult } from "../models/AnalysisResult";
+
+export async function analyzeLogs(
+  logs: string,
+  file: File | null
+): Promise<AnalysisResult> {
     const formData = new FormData();
   
     if (logs.trim().length > 0) {
