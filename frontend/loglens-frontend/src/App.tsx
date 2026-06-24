@@ -62,6 +62,7 @@ function App() {
             onLogsChange={handleLogsChange}
             onFileChange={handleFileChange}
             onAnalyze={handleAnalyze}
+            onError={setError}
           />
         }
         resultsPanel={<ResultsPanel result={result} loading={loading} />}

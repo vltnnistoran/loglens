@@ -5,13 +5,37 @@ import { useRef } from "react";
 interface FileLogUploadProps {
   file: File | null;
   onFileChange: (file: File | null) => void;
+  onError: (message: string) => void;
 }
 
-export function FileLogUpload({ file, onFileChange }: FileLogUploadProps) {
+export function FileLogUpload({ file, onFileChange, onError }: FileLogUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const selectedFile = event.target.files?.[0] ?? null;
+
+    if (!selectedFile) {
+      return;
+    }
+
+    const allowedExtensions = [".txt", ".log", ".json"];
+
+    const fileName = selectedFile.name.toLowerCase();
+
+    const isValid = allowedExtensions.some((extension) =>
+      fileName.endsWith(extension)
+    );
+
+    if (!isValid) {
+      onError(
+        "Invalid file type. Please upload a .txt, .log, or .json file."
+      );
+
+      event.target.value = "";
+
+      return;
+    }
+
     onFileChange(selectedFile);
   }
 
