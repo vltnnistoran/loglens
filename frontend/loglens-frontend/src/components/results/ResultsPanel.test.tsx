@@ -13,6 +13,10 @@ const mockResult: AnalysisResult = {
   possibleCauses: ["Unclosed database connections", "Unbounded cache growth"],
   suggestedFixes: ["Restart the service", "Profile heap usage"],
   confidence: "High",
+  detectedPatterns: [
+  "High number of ERROR entries detected: 4",
+  "Repeated log messages detected",
+  ],
 };
 
 function renderPanel(result: AnalysisResult | null, loading = false) {

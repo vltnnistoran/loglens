@@ -1,0 +1,19 @@
+{
+  "anomalyDetected": true,
+  "severity": "High",
+  "summary": "Notification service container repeatedly crashes due to missing required environment variable causing startup failure.",
+  "explanation": "The logs show that the notification service pod is scheduled and the container starts normally (2025-04-21T07:30:00.000Z to 2025-04-21T07:30:03.881Z). However, immediately after application startup begins (2025-04-21T07:30:04.001Z), a configuration error is logged indicating that the required environment variable 'SMTP_HOST' is not set (2025-04-21T07:30:04.112Z). This causes the application to fail startup and exit with code 1 (2025-04-21T07:30:04.113Z). Kubernetes detects the container exit and restarts it multiple times (RestartCount=1, 2) but the same failure repeats, leading to a CrashLoopBackOff state (2025-04-21T07:30:35.461Z). The anomaly detector flagged the repeated fatal startup failures as high severity anomalies. This pattern clearly indicates the container cannot start due to missing critical configuration.",
+  "possibleCauses": [
+    "Missing environment variable 'SMTP_HOST' in the pod specification or deployment manifest",
+    "Misconfiguration or omission in the deployment pipeline or configuration management system that injects environment variables"
+  ],
+  "suggestedFixes": [
+    "Add the required environment variable 'SMTP_HOST' with a valid SMTP server address to the pod or deployment manifest",
+    "Verify and correct the configuration management or deployment scripts to ensure 'SMTP_HOST' is properly set before pod creation"
+  ],
+  "confidence": "High",
+  "detectedPatterns": [
+    "Critical keyword detected: failed",
+    "Critical keyword detected: fatal"
+  ]
+}

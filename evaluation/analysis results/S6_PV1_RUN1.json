@@ -1,0 +1,25 @@
+{
+  "anomalyDetected": true,
+  "severity": "High",
+  "summary": "The application container experienced an out-of-memory (OOM) condition leading to a crash and restart.",
+  "explanation": "The logs show that the ReportService started generating a monthly analytics report and fetched data from the data warehouse. During this process, memory usage increased rapidly, reaching critical levels (up to 97% of the 2.0GB heap limit). This caused garbage collection pressure and eventually a Full GC pause. Shortly after, the application failed to allocate memory for report rendering, throwing an OutOfMemoryError. The Kubernetes kubelet detected that the container exceeded its memory limit and terminated it with an OOMKilled event, triggering a container restart.",
+  "possibleCauses": [
+    "The report generation process requires more memory than the allocated 2.0GB heap size.",
+    "Memory leak or inefficient memory usage in the ReportService during data processing or report rendering.",
+    "Insufficient Kubernetes memory resource limits set for the container.",
+    "Large volume of data fetched from the data warehouse causing excessive memory consumption."
+  ],
+  "suggestedFixes": [
+    "Increase the JVM heap size and Kubernetes memory limits for the report-svc container to accommodate peak memory usage.",
+    "Profile and optimize the ReportService code to reduce memory consumption, especially during report rendering.",
+    "Implement streaming or batching of data processing to avoid loading large datasets entirely into memory.",
+    "Add monitoring and alerting on memory usage trends to proactively detect and mitigate memory issues."
+  ],
+  "confidence": "High",
+  "detectedPatterns": [
+    "High number of ERROR entries detected: 3",
+    "Critical keyword detected: failed",
+    "Critical keyword detected: exception",
+    "Critical keyword detected: critical"
+  ]
+}

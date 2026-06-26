@@ -1,0 +1,19 @@
+{
+  "anomalyDetected": true,
+  "severity": "Medium",
+  "summary": "Multiple failed login attempts for user admin@internal.corp from a single IP led to account lockout and security alerts.",
+  "explanation": "The logs show a series of failed authentication attempts for the user admin@internal.corp originating from IP 185.220.101.47. Specifically, from 11:03:44.380Z to 11:03:50.210Z, there are six WARN entries indicating 'Authentication failed' due to 'Invalid credentials'. After the fifth consecutive failure, at 11:03:50.401Z, an ERROR log states the account was locked. Subsequently, a notification was dispatched (11:03:50.445Z), and the ApiGateway flagged repeated 401 responses from the same IP (11:03:51.002Z). Finally, the SecurityAudit service detected a potential brute-force attempt with 5 failed attempts in 7 seconds (11:03:51.340Z). The final login attempt returned a 423 Locked status (11:03:52.111Z). This pattern of rapid failed logins followed by account lockout and security alerts clearly indicates abnormal behavior consistent with a brute-force attack or unauthorized access attempt.",
+  "possibleCauses": [
+    "Malicious brute-force attack targeting admin@internal.corp from IP 185.220.101.47.",
+    "User or automated system repeatedly entering incorrect credentials leading to account lockout."
+  ],
+  "suggestedFixes": [
+    "Implement or verify existing rate limiting and IP blocking for repeated failed login attempts from the same IP.",
+    "Notify the user/admin to verify if the failed attempts were legitimate and consider resetting credentials or investigating potential compromise."
+  ],
+  "confidence": "High",
+  "detectedPatterns": [
+    "High number of WARNING entries detected: 6",
+    "Critical keyword detected: failed"
+  ]
+}

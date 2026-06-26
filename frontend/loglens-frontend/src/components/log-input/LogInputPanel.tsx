@@ -23,6 +23,7 @@ interface LogInputPanelProps {
   onLogsChange: (logs: string) => void;
   onFileChange: (file: File | null) => void;
   onAnalyze: () => void;
+  onError: (message: string) => void;
 }
 
 export function LogInputPanel({
@@ -33,6 +34,7 @@ export function LogInputPanel({
   onLogsChange,
   onFileChange,
   onAnalyze,
+  onError,
 }: LogInputPanelProps) {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -117,7 +119,7 @@ export function LogInputPanel({
           {activeTab === 0 ? (
             <TextLogInput value={logs} onChange={onLogsChange} />
           ) : (
-            <FileLogUpload file={file} onFileChange={onFileChange} />
+            <FileLogUpload file={file} onFileChange={onFileChange} onError={onError} />
           )}
         </Box>
 
