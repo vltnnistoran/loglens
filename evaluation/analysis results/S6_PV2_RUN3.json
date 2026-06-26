@@ -1,0 +1,23 @@
+{
+  "anomalyDetected": true,
+  "severity": "High",
+  "summary": "The report-svc container experienced an out-of-memory (OOM) failure during monthly report generation, causing the container to be OOMKilled and restarted.",
+  "explanation": "The logs show that the ReportService started generating a MonthlyAnalytics report at 14:22:10.001Z and began fetching data shortly after. Memory usage warnings escalate from 90% heap usage at 14:22:15.880Z to 97% at 14:22:18.002Z, indicating increasing memory pressure. A full garbage collection was triggered at 14:22:18.340Z with a 420ms pause, signaling GC pressure. At 14:22:19.001Z, an OutOfMemoryError occurred during buffer allocation for report rendering, causing the report generation to fail. Kubernetes kubelet logs confirm the container exceeded its 2.0GB memory limit and was OOMKilled at 14:22:19.220Z, followed by a container restart at 14:22:29.341Z. The anomaly detector also flagged multiple ERROR entries and critical keywords such as 'failed', 'exception', and 'critical', supporting the diagnosis of abnormal memory behavior leading to container termination.",
+  "possibleCauses": [
+    "Insufficient JVM heap size configured for the report generation workload",
+    "Memory leak or inefficient memory usage in the report rendering code causing heap exhaustion",
+    "Data volume or query result size (monthly_transactions) larger than expected, leading to excessive memory consumption"
+  ],
+  "suggestedFixes": [
+    "Increase the JVM heap size allocation for the ReportService container to accommodate peak memory needs",
+    "Investigate and optimize the report rendering code to reduce memory footprint and prevent leaks",
+    "Review and optimize the data query or implement pagination/batching to limit in-memory data size during report generation"
+  ],
+  "confidence": "High",
+  "detectedPatterns": [
+    "High number of ERROR entries detected: 3",
+    "Critical keyword detected: failed",
+    "Critical keyword detected: exception",
+    "Critical keyword detected: critical"
+  ]
+}

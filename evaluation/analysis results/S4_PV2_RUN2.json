@@ -1,0 +1,21 @@
+{
+  "anomalyDetected": true,
+  "severity": "High",
+  "summary": "NotificationService failed to start due to missing SMTP configuration and inability to retrieve fallback configuration.",
+  "explanation": "The logs show that the NotificationService application startup failed because required environment variables 'SMTP_HOST' and 'SMTP_PORT' were not set (2025-04-21T06:00:00.118Z and 2025-04-21T06:00:00.119Z). This caused the SmtpClient initialization to fail (2025-04-21T06:00:00.122Z). The service then attempted to load configuration from a fallback configuration service at config-svc:5000 (2025-04-21T06:00:00.123Z), but this attempt timed out after 5000ms (2025-04-21T06:00:05.124Z). Consequently, the application startup failed with a fatal unhandled exception (2025-04-21T06:00:05.126Z), and the process exited with code 1 (2025-04-21T06:00:05.127Z). The anomaly detector flagged multiple ERROR entries and critical keywords such as 'failed', 'exception', and 'fatal', confirming abnormal behavior.",
+  "possibleCauses": [
+    "Missing required SMTP configuration environment variables 'SMTP_HOST' and 'SMTP_PORT'.",
+    "Configuration service at config-svc:5000 is unreachable or down, causing fallback configuration loading to fail."
+  ],
+  "suggestedFixes": [
+    "Set the required environment variables 'SMTP_HOST' and 'SMTP_PORT' with valid values before starting the NotificationService.",
+    "Investigate and restore connectivity or availability of the configuration service at config-svc:5000 to enable fallback configuration loading."
+  ],
+  "confidence": "High",
+  "detectedPatterns": [
+    "High number of ERROR entries detected: 5",
+    "Critical keyword detected: failed",
+    "Critical keyword detected: exception",
+    "Critical keyword detected: fatal"
+  ]
+}

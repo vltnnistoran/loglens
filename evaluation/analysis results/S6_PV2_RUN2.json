@@ -1,0 +1,23 @@
+{
+  "anomalyDetected": true,
+  "severity": "High",
+  "summary": "The report-svc container experienced an out-of-memory (OOM) failure during report generation, causing the container to be OOMKilled and restarted.",
+  "explanation": "The logs show that the ReportService started a scheduled report generation at 14:22:10.001Z and began fetching data shortly after. By 14:22:15.880Z, memory usage warnings appear, escalating from high (90%) to critical (97%) by 14:22:18.002Z. A full garbage collection (GC) was triggered at 14:22:18.340Z with a 420ms pause, indicating memory pressure. Immediately after, at 14:22:19.001Z, an OutOfMemoryError occurred during buffer allocation for report rendering, causing the report generation to fail. Kubernetes kubelet logs confirm the container memory usage exceeded its 2.0GB limit and the container was OOMKilled at 14:22:19.220Z, followed by a container restart at 14:22:29.341Z. The anomaly detector also flagged multiple ERROR entries and critical keywords, consistent with this failure.",
+  "possibleCauses": [
+    "Insufficient JVM heap size configured for the ReportService container to handle the memory demands of MonthlyAnalytics report generation",
+    "Memory leak or inefficient memory usage in the report generation code causing heap to fill rapidly",
+    "Report data volume or complexity exceeding expected limits, causing excessive memory allocation"
+  ],
+  "suggestedFixes": [
+    "Increase the JVM heap size and container memory limit to accommodate peak memory usage during report generation",
+    "Profile and optimize the report generation code to reduce memory footprint and avoid leaks",
+    "Implement data pagination or chunking to limit in-memory data size during report generation"
+  ],
+  "confidence": "High",
+  "detectedPatterns": [
+    "High number of ERROR entries detected: 3",
+    "Critical keyword detected: failed",
+    "Critical keyword detected: exception",
+    "Critical keyword detected: critical"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "anomalyDetected": true,
+  "severity": "High",
+  "summary": "The notification-svc container repeatedly fails to start due to a missing required environment variable, causing a CrashLoopBackOff state.",
+  "explanation": "The logs show that the notification-svc pod is scheduled and the container image is successfully pulled and started. However, the application immediately encounters a configuration error because the required environment variable 'SMTP_HOST' is not set. This causes the application to exit with code 1. Kubernetes attempts to restart the container multiple times, but the same failure occurs, leading to a CrashLoopBackOff state with increasing backoff delays.",
+  "possibleCauses": [
+    "The environment variable 'SMTP_HOST' is not defined in the pod specification or deployment manifest.",
+    "A misconfiguration or omission in the Kubernetes deployment or Helm chart that fails to provide the required environment variables.",
+    "Secrets or ConfigMaps containing environment variables are not mounted or referenced correctly."
+  ],
+  "suggestedFixes": [
+    "Define the 'SMTP_HOST' environment variable with the correct SMTP server address in the pod or deployment manifest.",
+    "Verify that any ConfigMaps or Secrets used to provide environment variables are correctly created and referenced.",
+    "Review deployment automation scripts or Helm charts to ensure all required environment variables are included.",
+    "After fixing the configuration, redeploy the pod to verify the application starts successfully."
+  ],
+  "confidence": "High",
+  "detectedPatterns": [
+    "Critical keyword detected: failed",
+    "Critical keyword detected: fatal"
+  ]
+}

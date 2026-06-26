@@ -1,0 +1,24 @@
+{
+  "anomalyDetected": true,
+  "severity": "Medium",
+  "summary": "Multiple failed login attempts for user admin@internal.corp from IP 185.220.101.47 triggered an account lockout and security alerts.",
+  "explanation": "The logs show a sequence of six consecutive failed authentication attempts for the user admin@internal.corp originating from the same IP address within a short time frame. After the fifth failed attempt, the account was locked automatically to prevent unauthorized access. The system generated warnings and errors indicating the failed attempts, account lockout, and flagged the IP for potential brute-force attack and rate limiting review.",
+  "possibleCauses": [
+    "An attacker attempting a brute-force attack to gain access to the admin account.",
+    "A legitimate user repeatedly entering incorrect credentials due to forgotten password or misconfiguration.",
+    "Automated scripts or bots targeting the authentication endpoint with invalid credentials.",
+    "Credential stuffing attack using leaked or guessed passwords."
+  ],
+  "suggestedFixes": [
+    "Investigate the source IP 185.220.101.47 and block or rate-limit it if malicious activity is confirmed.",
+    "Notify the legitimate user about the lockout and recommend password reset procedures.",
+    "Implement or review multi-factor authentication (MFA) to enhance security.",
+    "Monitor authentication logs for similar patterns and adjust thresholds for lockout and alerts if necessary.",
+    "Ensure account lockout policies and notification mechanisms are functioning correctly."
+  ],
+  "confidence": "High",
+  "detectedPatterns": [
+    "High number of WARNING entries detected: 6",
+    "Critical keyword detected: failed"
+  ]
+}
